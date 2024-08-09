@@ -48,7 +48,7 @@ void generate_script(const char *jar_path) {
     } else {
         strncpy(shortened_name, jar_name, sizeof(shortened_name) - 1);
     }
-    snprintf(command, sizeof(command), "java -jar %s\n", jar_abs_path);
+    snprintf(command, sizeof(command), "java --add-opens=java.base/java.lang=ALL-UNNAMED -jar %s \\%*\n", jar_abs_path);
 
 #ifdef _WIN32
     snprintf(script_name, sizeof(script_name), "%s.cmd", shortened_name);
