@@ -8,7 +8,7 @@ def generate_script(jar_path):
     global out_name
     jar_abs_path = os.path.abspath(jar_path)
     display_name = os.path.basename(
-        jar_abs_pat
+        jar_abs_path
     ).split('-')[0].replace(".jar", "")
 
     command = f"java --add-opens=java.base/java.lang=ALL-UNNAMED -jar {
