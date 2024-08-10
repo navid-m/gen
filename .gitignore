@@ -2,3 +2,4 @@
 *.cmd
 *.jar
 *.vscode
+*.build
