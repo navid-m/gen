@@ -1,25 +1,31 @@
 import os
 import sys
 
-script_name = "unknown"
+out_name = ""
 
 
 def generate_script(jar_path):
-    global script_name
+    global out_name
     jar_abs_path = os.path.abspath(jar_path)
-    jar_name = os.path.basename(jar_abs_path)
-    shortened_name = jar_name.split('-')[0].replace(".jar", "")
+    display_name = os.path.basename(
+        jar_abs_pat
+    ).split('-')[0].replace(".jar", "")
+
     command = f"java --add-opens=java.base/java.lang=ALL-UNNAMED -jar {
         jar_abs_path} %* \n"
+
     if os.name == 'nt':
-        script_name = f"{shortened_name}.cmd"
-        with open(script_name, 'w') as script_file:
+        out_name = f"{display_name}.cmd"
+        with open(out_name, 'w') as script_file:
             script_file.write(f"@echo off\n{command}")
         return
-    script_name = f"{shortened_name}.sh"
-    with open(script_name, 'w') as script_file:
+
+    out_name = f"{display_name}.sh"
+
+    with open(out_name, 'w') as script_file:
         script_file.write(f"#!/bin/bash\n{command}")
-    os.chmod(script_name, 0o755)
+
+    os.chmod(out_name, 0o755)
 
 
 if __name__ == "__main__":
@@ -29,6 +35,6 @@ if __name__ == "__main__":
         jar_path = sys.argv[1]
         if (os.path.exists(jar_path)):
             generate_script(jar_path)
-            print(f"Generated: {script_name}")
+            print(f"Generated: {out_name}")
             raise SystemExit()
         print("Specified JAR does not exist")
