@@ -12,7 +12,6 @@ def generate_script(jar_path):
 
     cmnd = f"java --add-opens=java.base/java.lang=ALL-UNNAMED -jar {
         jar_abs_path} %*\n"
-
     sc = f"@echo off\n{cmnd}" if os.name == 'nt' else f"#!/bin/bash\n{cmnd}"
     out_name = f"{display_name}.{'cmd' if os.name == 'nt' else 'sh'}"
 
